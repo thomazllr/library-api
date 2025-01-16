@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import static com.thomaz.library.repositories.specs.BookSpecs.*;
 
 @Service
 public class BookService {
@@ -37,7 +38,7 @@ public class BookService {
     }
 
     public List<Book> search(String isbn, String nameAuthor, String title, Genre genre, LocalDate release) {
-        Specification<Book> specification = null;
-        return repository.findAll(BookSpecs.isbnEqual(isbn));
+        Specification<Book> specification = Specification.where((root, query, criteriaBuilder) -> criteriaBuilder.conjunction());
+        return repository.findAll(specification);
     }
 }
