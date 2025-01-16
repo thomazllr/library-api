@@ -4,5 +4,9 @@ public enum Genre {
     FANTASY,
     SCIENCE,
     MYSTERY,
-    ROMANCE
-}
+    ROMANCE,
+    BIOGRAPHY,
+    FICCTION
+
+
+    }

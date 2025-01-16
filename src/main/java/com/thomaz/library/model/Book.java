@@ -25,8 +25,6 @@ public class Book {
     @Column(name = "isbn", length = 20, nullable = false)
     private String isbn;
 
-    private String description;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "genre", length = 30,     nullable = false)
     private Genre genre;
@@ -55,19 +53,17 @@ public class Book {
     public Book() {
     }
 
-    public Book(UUID id, String title, String description, Genre genre, Author author) {
+    public Book(UUID id, String title, Genre genre, Author author) {
         this.id = id;
         this.title = title;
-        this.description = description;
         this.genre = genre;
         this.author = author;
     }
 
-    public Book(UUID id, String title, String isbn, String description, Genre genre, BigDecimal price, LocalDate release, Author author) {
+    public Book(UUID id, String title, String isbn, Genre genre, BigDecimal price, LocalDate release, Author author) {
         this.id = id;
         this.title = title;
         this.isbn = isbn;
-        this.description = description;
         this.genre = genre;
         this.price = price;
         this.release = release;
@@ -88,14 +84,6 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Genre getGenre() {

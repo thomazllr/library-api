@@ -14,7 +14,7 @@ create table book (
                        isbn varchar(20) not null unique,
                        title varchar(150) not null,
                        release date not null,
-                       gender varchar(30) not null,
+                       genre varchar(30) not null,
                        price numeric(18,2),
                        date_register timestamp,
                        date_update timestamp,
@@ -22,3 +22,5 @@ create table book (
                        id_author uuid not null references author(id),
                        constraint chk_gender check (gender in ('FICCTION', 'FANTASY', 'MISTERY','ROMANCE', 'BIOGRAPHY', 'SCIENCE') )
 );
+
+

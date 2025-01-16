@@ -35,7 +35,6 @@ public class TransationService {
 
         Book book = new Book();
         book.setTitle("livro epico");
-        book.setDescription("é um livro epico");
         book.setGenre(Genre.SCIENCE);
         book.setAuthor(author);
 
@@ -47,7 +46,6 @@ public class TransationService {
     @Transactional
     public void update()  {
         var book = bookRepository.findById(UUID.fromString("dcb3510d-c2c3-485c-88fb-279c62b994eb")).orElse(null);
-        book.setDescription("NOVA DESCRICAO EPICA");
     }
 
 
