@@ -7,5 +7,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/tasktales
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true

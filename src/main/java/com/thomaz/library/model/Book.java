@@ -3,6 +3,8 @@ package com.thomaz.library.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -12,12 +14,23 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "title", length = 150, nullable = false)
     private String title;
+
+    @Column(name = "isbn", length = 20, nullable = false)
+    private String isbn;
 
     private String description;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "genre", length = 30,     nullable = false)
     private Genre genre;
+
+    @Column(name = "price",precision = 18, scale = 2)
+    private BigDecimal price;
+
+    @Column(name = "release")
+    private LocalDate release;
 
     @ManyToOne
     @JoinColumn(name = "id_author")
@@ -33,6 +46,17 @@ public class Book {
         this.title = title;
         this.description = description;
         this.genre = genre;
+        this.author = author;
+    }
+
+    public Book(UUID id, String title, String isbn, String description, Genre genre, BigDecimal price, LocalDate release, Author author) {
+        this.id = id;
+        this.title = title;
+        this.isbn = isbn;
+        this.description = description;
+        this.genre = genre;
+        this.price = price;
+        this.release = release;
         this.author = author;
     }
 
@@ -74,5 +98,30 @@ public class Book {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+
+    public LocalDate getRelease() {
+        return release;
+    }
+
+    public void setRelease(LocalDate release) {
+        this.release = release;
     }
 }
