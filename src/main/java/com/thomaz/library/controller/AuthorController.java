@@ -3,10 +3,11 @@ package com.thomaz.library.controller;
 import com.thomaz.library.exceptions.DuplicateRegisterException;
 import com.thomaz.library.exceptions.NotAllowedOperation;
 import com.thomaz.library.model.Author;
-import com.thomaz.library.model.dto.AuthorRequestDTO;
-import com.thomaz.library.model.dto.AuthorResponseDTO;
+import com.thomaz.library.model.dto.AuthorRequest;
+import com.thomaz.library.model.dto.AuthorResponse;
 import com.thomaz.library.model.dto.ErrorResponse;
 import com.thomaz.library.service.AuthorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/authors")
@@ -26,7 +26,7 @@ public class AuthorController {
     private AuthorService authorService;
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody AuthorRequestDTO request) {
+    public ResponseEntity<?> save(@RequestBody @Valid AuthorRequest request) {
 
         try {
             Author savedAuthor = service.save(request.toAuthor());
@@ -46,24 +46,24 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorResponseDTO> details(@PathVariable String id) {
+    public ResponseEntity<AuthorResponse> details(@PathVariable String id) {
         return service.findById(id)
-                .map(author -> ResponseEntity.ok(new AuthorResponseDTO(author)))
+                .map(author -> ResponseEntity.ok(new AuthorResponse(author)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<AuthorResponseDTO>> search(
+    public ResponseEntity<List<AuthorResponse>> search(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String nationality) {
         return ResponseEntity.ok(service.search(name, nationality)
                 .stream()
-                .map(AuthorResponseDTO::new)
+                .map(AuthorResponse::new)
                 .toList());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable String id, @RequestBody AuthorRequestDTO request) {
+    public ResponseEntity<?> update(@PathVariable String id, @RequestBody @Valid AuthorRequest request) {
 
         try {
             Optional<Author> author = service.findById(id);
