@@ -5,6 +5,7 @@ import com.thomaz.library.model.Genre;
 import com.thomaz.library.model.dto.BookRequest;
 import com.thomaz.library.repositories.AuthorRepository;
 import com.thomaz.library.repositories.BookRepository;
+import com.thomaz.library.validator.BookValidator;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -25,8 +26,12 @@ public class BookService {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @Autowired
+    private BookValidator validator;
+
     public Book save(BookRequest request) {
         Book book = request.toBook(authorRepository);
+        validator.validate(book);
         return repository.save(book);
     }
 
@@ -39,6 +44,7 @@ public class BookService {
             book.setTitle(entity.getTitle());
             book.setAuthor(entity.getAuthor());
             book.setIsbn(entity.getIsbn());
+            validator.validate(book);
             return repository.save(book);
         }).orElseThrow(() -> new EntityNotFoundException("Book not found"));
     }

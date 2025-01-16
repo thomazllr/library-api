@@ -1,6 +1,7 @@
 package com.thomaz.library.controller.common;
 
 import com.thomaz.library.exceptions.DuplicateRegisterException;
+import com.thomaz.library.exceptions.InvalidFieldException;
 import com.thomaz.library.exceptions.NotAllowedOperation;
 import com.thomaz.library.model.dto.ErrorField;
 import com.thomaz.library.model.dto.ErrorResponse;
@@ -34,6 +35,14 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleNotAllowedOperationException(NotAllowedOperation ex) {
         return ErrorResponse.defaultError(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidFieldException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ErrorResponse handleInvalidFieldExcpetion(InvalidFieldException ex) {
+        return new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Invalid field",
+                List.of(new ErrorField((ex.getField()), ex.getMessage())));
     }
 
     @ExceptionHandler(RuntimeException.class)
