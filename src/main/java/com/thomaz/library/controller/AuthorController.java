@@ -18,31 +18,17 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/authors")
-public class AuthorController {
+public class AuthorController implements GenericController {
 
     @Autowired
     private AuthorService service;
-    @Autowired
-    private AuthorService authorService;
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid AuthorRequest request) {
 
-        try {
-            Author savedAuthor = service.save(request.toAuthor());
-
-            var location = ServletUriComponentsBuilder.
-                    fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(savedAuthor.getId())
-                    .toUri();
-
-            return ResponseEntity.created(location).build();
-        } catch (DuplicateRegisterException e) {
-            var error = ErrorResponse.conflict(e.getMessage());
-            return ResponseEntity.status(error.status()).body(error);
-        }
-
+        Author savedAuthor = service.save(request.toAuthor());
+        var location = generateHeaderLocation(savedAuthor.getId());
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping("/{id}")
@@ -65,37 +51,30 @@ public class AuthorController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id, @RequestBody @Valid AuthorRequest request) {
 
-        try {
-            Optional<Author> author = service.findById(id);
-            if (author.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-            var authorToUpdate = author.get();
-            authorToUpdate.setName(request.name());
-            authorToUpdate.setNationality(request.nationality());
-            authorToUpdate.setBirthday(request.birthday());
-            service.save(authorToUpdate);
-            return ResponseEntity.noContent().build();
-        } catch (DuplicateRegisterException e) {
-            var error = ErrorResponse.conflict(e.getMessage());
-            return ResponseEntity.status(error.status()).body(error);
+
+        Optional<Author> author = service.findById(id);
+        if (author.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
+        var authorToUpdate = author.get();
+        authorToUpdate.setName(request.name());
+        authorToUpdate.setNationality(request.nationality());
+        authorToUpdate.setBirthday(request.birthday());
+        service.save(authorToUpdate);
+        return ResponseEntity.noContent().build();
+
 
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) {
-        try {
-            Optional<Author> author = service.findById(id);
-            if (author.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-            authorService.delete(author.get());
-            return ResponseEntity.noContent().build();
-        } catch (NotAllowedOperation e) {
-            var error = ErrorResponse.defaultError(e.getMessage());
-            return ResponseEntity.status(error.status()).body(error);
+
+        Optional<Author> author = service.findById(id);
+        if (author.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
+        service.delete(author.get());
+        return ResponseEntity.noContent().build();
 
     }
 }
