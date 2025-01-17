@@ -8,6 +8,8 @@ import com.thomaz.library.repositories.BookRepository;
 import com.thomaz.library.validator.BookValidator;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +59,7 @@ public class BookService {
         repository.delete(book);
     }
 
-    public List<Book> search(String isbn, String nameAuthor, String title, Genre genre, Integer release) {
+    public Page<Book> search(String isbn, String nameAuthor, String title, Genre genre, Integer release, Integer page, Integer size) {
         Specification<Book> specification = Specification.where((root, query, criteriaBuilder) -> criteriaBuilder.conjunction());
 
         if (isbn != null) {
@@ -80,6 +82,8 @@ public class BookService {
             specification = specification.and(authorNameLike(nameAuthor));
         }
 
-        return repository.findAll(specification);
+        var request = PageRequest.of(page, size);
+
+        return repository.findAll(specification, request);
     }
 }
