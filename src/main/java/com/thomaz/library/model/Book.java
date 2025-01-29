@@ -47,7 +47,7 @@ public class Book {
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;
 
-    private UUID idClient;
+    private UUID idUser;
 
 
     public Book() {

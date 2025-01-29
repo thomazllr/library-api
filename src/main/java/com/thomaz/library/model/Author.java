@@ -38,13 +38,13 @@ public class Author {
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;
 
-    private UUID idClient;
+    private UUID idUser;
 
     public Author() {
     }
 
 
-    public Author(UUID id, String name, String nationality, LocalDate birthday, List<Book> books, LocalDateTime dateRegister, LocalDateTime dateUpdate, UUID idClient) {
+    public Author(UUID id, String name, String nationality, LocalDate birthday, List<Book> books, LocalDateTime dateRegister, LocalDateTime dateUpdate, UUID idUser) {
         this.id = id;
         this.name = name;
         this.nationality = nationality;
@@ -52,7 +52,7 @@ public class Author {
         this.books = books;
         this.dateRegister = dateRegister;
         this.dateUpdate = dateUpdate;
-        this.idClient = idClient;
+        this.idUser = idUser;
     }
 
     public UUID getId() {
@@ -111,11 +111,11 @@ public class Author {
         this.dateUpdate = dateUpdate;
     }
 
-    public UUID getIdClient() {
-        return idClient;
+    public UUID getIdUser() {
+        return idUser;
     }
 
-    public void setIdClient(UUID idClient) {
-        this.idClient = idClient;
+    public void setIdClient(UUID idUser) {
+        this.idUser = idUser;
     }
 }
