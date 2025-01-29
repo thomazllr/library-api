@@ -13,22 +13,22 @@ public class AuthorValidator {
     private AuthorRepository authorRepository;
 
     public void validateAuthor(Author author) {
-        if(existAuthor(author)) {
+        if(isDuplicateAuthor(author)) {
             throw new DuplicateRegisterException("Author already exists");
         }
     }
 
-    private boolean existAuthor(Author author) {
+    private boolean isDuplicateAuthor(Author author) {
         var optionalAuthor = authorRepository.findByNameAndNationalityAndBirthday(
                 author.getName(),
                 author.getNationality(),
                 author.getBirthday());
 
-        if(author.getId() == null) {
-            return optionalAuthor.isPresent();
+        if (optionalAuthor.isEmpty()) {
+            return false;
         }
 
-        return !author.getId().equals(optionalAuthor.get().getId()) && optionalAuthor.isPresent();
+        return !author.getId().equals(optionalAuthor.get().getId());
     }
 
 

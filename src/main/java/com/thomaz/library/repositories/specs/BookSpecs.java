@@ -28,9 +28,7 @@ public class BookSpecs {
     }
 
     public static Specification<Book> authorNameLike(String name) {
-        return (root, query, criteriaBuilder) -> {
-             return criteriaBuilder.like(criteriaBuilder.upper(root.get("author").get("name")), "%" + name.toUpperCase() + "%");
-        };
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.upper(root.get("author").get("name")), "%" + name.toUpperCase() + "%");
     }
 
 

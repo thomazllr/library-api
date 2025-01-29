@@ -74,7 +74,7 @@ public class BookService {
             specification = specification.and(genreEqual(genre));
         }
 
-        if (release != null) {
+        if (release != null) {  
             specification = specification.and(yearReleaseEqual(release));
         }
 
