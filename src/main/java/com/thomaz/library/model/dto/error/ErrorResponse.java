@@ -1,4 +1,4 @@
-package com.thomaz.library.model.dto;
+package com.thomaz.library.model.dto.error;
 
 import org.springframework.http.HttpStatus;
 

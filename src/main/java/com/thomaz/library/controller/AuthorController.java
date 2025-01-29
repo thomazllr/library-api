@@ -1,8 +1,8 @@
 package com.thomaz.library.controller;
 
 import com.thomaz.library.model.Author;
-import com.thomaz.library.model.dto.AuthorRequest;
-import com.thomaz.library.model.dto.AuthorResponse;
+import com.thomaz.library.model.dto.author.AuthorRequest;
+import com.thomaz.library.model.dto.author.AuthorResponse;
 import com.thomaz.library.service.AuthorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

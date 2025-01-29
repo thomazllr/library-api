@@ -2,17 +2,14 @@ package com.thomaz.library.controller;
 
 import com.thomaz.library.model.Book;
 import com.thomaz.library.model.Genre;
-import com.thomaz.library.model.dto.BookRequest;
-import com.thomaz.library.model.dto.BookResponse;
+import com.thomaz.library.model.dto.book.BookRequest;
+import com.thomaz.library.model.dto.book.BookResponse;
 import com.thomaz.library.service.BookService;
 import jakarta.validation.Valid;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/books")

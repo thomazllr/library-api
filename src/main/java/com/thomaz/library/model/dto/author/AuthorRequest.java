@@ -1,4 +1,4 @@
-package com.thomaz.library.model.dto;
+package com.thomaz.library.model.dto.author;
 
 import com.thomaz.library.model.Author;
 import jakarta.validation.constraints.NotBlank;

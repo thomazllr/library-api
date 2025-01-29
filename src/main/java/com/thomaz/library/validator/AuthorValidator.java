@@ -24,12 +24,11 @@ public class AuthorValidator {
                 author.getNationality(),
                 author.getBirthday());
 
-        if (optionalAuthor.isEmpty()) {
-            return false;
+        if (author.getId() == null) {
+            return optionalAuthor.isPresent();
         }
 
-        return !author.getId().equals(optionalAuthor.get().getId());
+        return optionalAuthor.isPresent() && !author.getId().equals(optionalAuthor.get().getId());
     }
-
 
 }

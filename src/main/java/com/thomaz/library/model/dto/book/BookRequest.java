@@ -1,4 +1,4 @@
-package com.thomaz.library.model.dto;
+package com.thomaz.library.model.dto.book;
 
 import com.thomaz.library.model.Author;
 import com.thomaz.library.model.Book;

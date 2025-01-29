@@ -1,4 +1,4 @@
-package com.thomaz.library.model.dto;
+package com.thomaz.library.model.dto.error;
 
 public record ErrorField(String field, String error) {
 }

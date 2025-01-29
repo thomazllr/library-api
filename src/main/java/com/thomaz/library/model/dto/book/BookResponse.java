@@ -1,8 +1,8 @@
-package com.thomaz.library.model.dto;
+package com.thomaz.library.model.dto.book;
 
 import com.thomaz.library.model.Book;
 import com.thomaz.library.model.Genre;
-import org.hibernate.validator.constraints.ISBN;
+import com.thomaz.library.model.dto.author.AuthorResponse;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

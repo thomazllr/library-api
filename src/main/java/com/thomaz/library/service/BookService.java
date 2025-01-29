@@ -2,7 +2,7 @@ package com.thomaz.library.service;
 
 import com.thomaz.library.model.Book;
 import com.thomaz.library.model.Genre;
-import com.thomaz.library.model.dto.BookRequest;
+import com.thomaz.library.model.dto.book.BookRequest;
 import com.thomaz.library.repositories.AuthorRepository;
 import com.thomaz.library.repositories.BookRepository;
 import com.thomaz.library.validator.BookValidator;
@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
